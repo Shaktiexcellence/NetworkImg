@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
+import 'dart:async';
 
 void main() {
   return runApp(
@@ -7,54 +7,110 @@ void main() {
       home: Scaffold(
         backgroundColor: Colors.red,
         appBar: AppBar(
-          title: Text('Dicee'),
+          title: Text('Timer'),
           backgroundColor: Colors.red,
         ),
-        body: DicePage(),
+        body: TimerWidget(),
       ),
     ),
   );
 }
 
-class DicePage extends StatefulWidget {
+class TimerWidget extends StatefulWidget {
   @override
-  _DicePageState createState() => _DicePageState();
+  _TimerState createState() => _TimerState();
 }
 
-class _DicePageState extends State<DicePage> {
-  int leftDiceNumber = 1;
-  int rightDiceNumber = 1;
+class _TimerState extends State<TimerWidget> {
+  static const timeout = const Duration(seconds: 3);
+  static const ms = const Duration(milliseconds: 1);
+  int _timer = 0;
+  bool timerRunning = false;
+  Timer _timerObj;
 
-  void ChangeDiceFace() {
+  _TimerState() {
+    _timerObj = startTimeout();
+  }
+
+  startTimeout([int milliseconds]) {
+    var duration = milliseconds == null ? timeout : ms * milliseconds;
+    timerRunning = true;
+    return new Timer.periodic(duration, _increaseTimer);
+  }
+
+  void _increaseTimer(Timer timer) {
     setState(() {
-      leftDiceNumber = Random().nextInt(6) + 1; // for num 1-6
-      rightDiceNumber = Random().nextInt(6) + 1;
+      print(_timer);
+      _timer++;
     });
+  }
+
+  void _stopTimer() {
+    print("stop timer");
+    _timerObj.cancel();
+    setState(() {
+      timerRunning = false;
+    });
+  }
+
+  void _startTimer() {
+    print("start timer");
+    if (!_timerObj.isActive) {
+      setState(() {
+        timerRunning = true;
+      });
+      startTimeout();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Row(children: <Widget>[
-        Expanded(
-          child: FlatButton(
-            onPressed: () {
-              ChangeDiceFace();
-              print('Left dice no $leftDiceNumber');
-            },
-            child: Image.asset('images/dice$leftDiceNumber.png'),
+    return Container(
+      color: Colors.white,
+      child: Row(
+        textDirection: TextDirection.ltr,
+        children: <Widget>[
+          Text(
+            "Timer $_timer",
+            textDirection: TextDirection.ltr,
+            style: TextStyle(color: Colors.black38, fontSize: 15),
+          ),
+          !timerRunning
+              ? MyButton(buttonText: "Start", onTap: _startTimer)
+              : Container(),
+          timerRunning
+              ? MyButton(buttonText: "Stop", onTap: _stopTimer)
+              : Container(),
+        ],
+      ),
+    );
+  }
+}
+
+class MyButton extends StatelessWidget {
+  MyButton({this.buttonText = "", this.onTap});
+
+  final VoidCallback onTap;
+  final String buttonText;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 36.0,
+        padding: const EdgeInsets.all(8.0),
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5.0),
+          color: Colors.lightGreen[500],
+        ),
+        child: Center(
+          child: Text(
+            buttonText,
+            textDirection: TextDirection.ltr,
           ),
         ),
-        Expanded(
-          child: FlatButton(
-            onPressed: () {
-              ChangeDiceFace();
-              print('Right dice no $rightDiceNumber');
-            },
-            child: Image.asset('images/dice$rightDiceNumber.png'),
-          ),
-        ),
-      ]),
+      ),
     );
   }
 }
