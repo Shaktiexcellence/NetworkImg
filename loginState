@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+
+class LoginScreen extends StatefulWidget {
+  createState() {
+    return LoginScreenState();
+  }
+}
+
+class LoginScreenState extends State<LoginScreen> {
+  final formKey = GlobalKey<FormState>();
+
+  Widget build(context) {
+    return Container(
+      margin: EdgeInsets.all(20),
+      child: Form(
+        key: formKey,
+        child: Column(
+          children: <Widget>[
+            emailField(),
+            passwordFeild(),
+            Container(margin: EdgeInsets.only(top: 25)),
+            submitButton(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget emailField() {
+    return TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+          labelText: "Email Address", hintText: 'you@gmail.com'),
+      validator: (String value) {
+        if (!value.contains('@')) return 'please enter valid email';
+      },
+    );
+  }
+
+  Widget passwordFeild() {
+    return TextFormField(
+      obscureText: true,
+      decoration: InputDecoration(labelText: 'Password', hintText: 'Password'),
+      validator: (String value) {
+        if (value.length < 4) return 'password must be atleast 4 char';
+      },
+    );
+  }
+
+  Widget submitButton() {
+    return RaisedButton(
+      color: Colors.blue,
+      onPressed: () {
+        formKey.currentState.validate();
+        // formKey.currentState.reset();
+      },
+      child: Text('Submit'),
+    );
+  }
+}
