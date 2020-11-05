@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loginstate/src/mixins/validation_mixin.dart';
 
 class LoginScreen extends StatefulWidget {
   createState() {
@@ -6,8 +7,10 @@ class LoginScreen extends StatefulWidget {
   }
 }
 
-class LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<LoginScreen> with ValidationMixin {
   final formKey = GlobalKey<FormState>();
+  String email = '';
+  String password = '';
 
   Widget build(context) {
     return Container(
@@ -31,28 +34,33 @@ class LoginScreenState extends State<LoginScreen> {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           labelText: "Email Address", hintText: 'you@gmail.com'),
-      validator: (String value) {
-        if (!value.contains('@')) return 'please enter valid email';
+      validator: validateEmail,
+      onSaved: (String value) {
+        email = value;
       },
     );
   }
 
   Widget passwordFeild() {
     return TextFormField(
-      obscureText: true,
-      decoration: InputDecoration(labelText: 'Password', hintText: 'Password'),
-      validator: (String value) {
-        if (value.length < 4) return 'password must be atleast 4 char';
-      },
-    );
+        obscureText: true,
+        decoration:
+            InputDecoration(labelText: 'Password', hintText: 'Password'),
+        validator: validatePassword,
+        onSaved: (String value) {
+          password = value;
+        });
   }
 
   Widget submitButton() {
     return RaisedButton(
       color: Colors.blue,
       onPressed: () {
-        formKey.currentState.validate();
-        // formKey.currentState.reset();
+        if (formKey.currentState.validate()) {
+          formKey.currentState.save();
+          formKey.currentState.reset();
+          print("The to send $email and $password to API");
+        }
       },
       child: Text('Submit'),
     );
