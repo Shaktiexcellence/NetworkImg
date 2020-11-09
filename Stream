@@ -24,3 +24,34 @@ import 'dart:async';
              onError:(err)=>print(err)
              );
 }
+
+// Adding email n password using stream:-
+import 'dart:async';
+
+void main() {
+  final bloc = new Bloc();
+  
+//   bloc.emailController.stream.listen((value) {
+//     print(value);
+//   });
+
+  bloc.email.listen((value){
+      print(value);      
+  });
+  
+ // bloc.emailController.sink.add('My New Email');
+  bloc.changeEmail('your email ');
+}
+
+class Bloc {
+  final emailController = StreamController<String>();
+  final passwordController = StreamController<String>();
+  // add data to stream 
+Function(String) get changeEmail => emailController.sink.add;
+Function(String) get changePassword => passwordController.sink.add;
+  // retrive data form stream
+Stream<String> get email => emailController.stream;
+Stream<String> get password => passwordController.stream;
+}
+
+
