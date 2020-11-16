@@ -26,4 +26,10 @@ void main() {
 //     sum = sum + list[i];
 //   }
 //   print("The sum is $sum");
+
+  var sum = 0;
+  for (var value in values) {
+    sum += value;
+  }
+  print(sum);
 }
