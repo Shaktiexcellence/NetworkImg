@@ -62,3 +62,24 @@ void welcome(String Function (String)greet,String name){
   print(greet(name));
   print('welcome to this course');
 }
+
+/**List**/
+
+
+void main() {
+const list = [1,2,3];
+list.forEach((x)=> print(x));
+//  list.forEach(print);
+//   for(var value in list){
+//     print(value);
+//   }
+final doubles = list.map((value)=>value*2);
+  print(doubles);
+  final List<int> doubles1 = list.map((value)=>value*2).toList();
+  print(doubles1);
+// final doubles2 = [];
+//   for(var value in list){
+//     doubles2.add(value*2);
+//   }
+}
+
