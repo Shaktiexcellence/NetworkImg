@@ -21,3 +21,13 @@ String describe(String name,int age){
   return 'My name is $name , Im $age old';
 }
 
+/**Named Argument**/
+
+void main() {
+final person = describe(name:'Shubham',age:34);
+print(person);
+}
+
+String describe({String name,int age}){
+  return 'My name is $name , Im $age old';
+}
