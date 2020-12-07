@@ -43,3 +43,22 @@ void foo (int a,{int b = 0,int c = -1}){
   print('a: $a,b: $b,c: $c');
 }
 
+/**Anonymous Function n typedef **/
+
+typedef Greet = String Function(String);
+//typedef String Greet(String);
+String sayHi(String name)=> 'Hi , $name';
+String sayHola(String name)=> 'Hola , $name';
+String saybananza(String name)=> 'Bananza , $name';
+
+void main() {
+//final sayHi = (String name)=> 'Hi , $name';
+// print(sayHi('Shubham Mishra'));
+welcome(sayHola,"Kartik Mishra");
+  
+}
+
+void welcome(String Function (String)greet,String name){
+  print(greet(name));
+  print('welcome to this course');
+}
