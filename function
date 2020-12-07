@@ -31,3 +31,15 @@ print(person);
 String describe({String name,int age}){
   return 'My name is $name , Im $age old';
 }
+
+/**Mixed named n positioned argument**/
+
+void main() {
+foo(12,b: 1,c: 32);
+}
+
+
+void foo (int a,{int b = 0,int c = -1}){
+  print('a: $a,b: $b,c: $c');
+}
+
