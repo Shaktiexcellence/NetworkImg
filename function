@@ -65,21 +65,47 @@ void welcome(String Function (String)greet,String name){
 
 /**List**/
 
-
 void main() {
 const list = [1,2,3];
+const l2 = [1.0,2.3,4.0];
+  
 list.forEach((x)=> print(x));
 //  list.forEach(print);
 //   for(var value in list){
 //     print(value);
 //   }
-final doubles = list.map((value)=>value*2);
-  print(doubles);
-  final List<int> doubles1 = list.map((value)=>value*2).toList();
-  print(doubles1);
+// final doubles = list.map((value)=>value*2);
+//   print(doubles);
+//   final List<int> doubles1 = list.map((value)=>value*2).toList();
+//   print(doubles1);
+//   final doubles3 = doubleItems(list);
+//   print(doubles3);
+     final doubles4 = transform<int>(list,(x)=>x*2); 
+      print(doubles4);
+     final squares = transform<int>(list,(x)=>x*x); 
+      print(squares);
+  final squares1 = transform<double>(l2,(x)=>x*x); 
+      print(squares1);
 // final doubles2 = [];
 //   for(var value in list){
 //     doubles2.add(value*2);
 //   }
 }
+
+List<T> transform<T>(List<T> items,T Function(T)f ){
+  var result = <T>[];
+  for(var x in items){
+    result.add(f(x));
+  }
+  return result;
+}
+
+List<int> doubleItems(List<int> items){
+  var result = <int>[];  
+  for(var x in items){
+    result.add(x*2);
+  }
+  return result;
+}
+
 
