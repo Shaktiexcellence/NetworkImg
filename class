@@ -64,3 +64,25 @@ final zero = Complex.zero();
   print(zero.im);
 }
 
+/**Named constuctor**/
+
+class Temperature{
+  double celsius;
+  Temperature.celsius(this.celsius);
+  Temperature.ferenhight(double ferenhight):celsius = (ferenhight -32)/1.8;
+  double get ferenhight => celsius *1.8 +32;
+  set ferenhight(double ferenhight)=>celsius = (ferenhight -32)/1.8;
+}
+
+void main() {
+  final temp1 =  Temperature.celsius(30) ;
+  final temp2 =  Temperature.ferenhight(98) ;
+  print(temp1.celsius);
+  print(temp2.celsius);
+  temp2.ferenhight = 100;
+   print(temp2.celsius);
+  temp1.ferenhight = 80;
+  print(temp1.celsius);
+}
+
+
