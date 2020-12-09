@@ -50,3 +50,17 @@ void main() {
   p2.printDescription();
 }
 
+/**Const Constructor**/
+
+class Complex{
+  final  double re;
+  final double im;
+   Complex(this.re,this.im);
+  Complex.zero():re =0,im=1;
+}
+
+void main() {
+final zero = Complex.zero();
+  print(zero.im);
+}
+
