@@ -116,4 +116,19 @@ void main() {
   }
 }
 
+/**static method n variable**/
+
+class Strings{
+  static const welcome = 'Welcome';
+  static const signIn = 'SignIn';
+  static String geet(String name)=> 'Hi , $name';
+}
+
+void main() {
+  print(Strings.welcome);
+  print(Strings.signIn);
+  print(Strings.geet('Kartik')); 
+}
+
+
 
