@@ -1,0 +1,40 @@
+/**Inheritence ,override n super constructor**/
+
+
+class Animal {
+  final int age;
+
+  Animal({this.age});
+
+  void sleep() => print('sleep');
+}
+
+class Dog extends Animal {
+  Dog({int age}) : super(age: age);
+
+  void bark() => print('bark');
+  @override
+  void sleep() {
+    super.sleep();
+    print('sleep some more');
+  }
+}
+
+class Cow extends Animal {
+  Cow({int age}) : super(age: age);
+
+  void moo() => print('moo');
+}
+
+class CleaverDog extends Dog {
+  CleaverDog({int age}) : super(age: age);
+
+  void catchBall() => print('Catch Ball');
+}
+
+void main() {
+  final animal = Animal(age: 10);
+  //animal.sleep();
+  final dog = Dog(age: 10);
+  dog.sleep();
+}
