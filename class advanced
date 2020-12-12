@@ -239,4 +239,17 @@ void main() {
     ..lineTo(Point(0, 0));
 print(path._points);
 }
+/**extenstion in dart**/
+
+extension NumberParsing on String {
+  int? toIntOrNull() => int.tryParse(this);
+}
+
+void main() {
+int.tryParse('123');
+  '123'.toIntOrNull();
+  print('456'.toIntOrNull());
+  
+}
+
 
